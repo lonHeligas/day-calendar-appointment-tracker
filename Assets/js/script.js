@@ -6,13 +6,35 @@
 
 $(function () {
   let currentTimeDay = moment();
+  let liveSchedule = [];
+  
+
     
 
 
+  function getSchedule (){
+    let incomingSched = localStorage.getItem("storedSched");
+    if (incomingSched == null) {
+    incomingSched = [];
+    } else {
+      incomingSched = JSON.parse(incomingSched);
+    }
+    console.log`${incomingSched}`;
+    // let downloadSchedule = something;
+    // this will grab the current schedule from the local storage
+  }
 
+  function renderSchedule (){
+    // this dynamically creates the schedule from the array of objects loaded from local storage
+  }
 
+  function saveSchedule (){
+    // this will save the current schedule in local storage when the user clicks save
+  }
 
-
+  function dayHighlight (){
+    // this will color-code the days depending on the time of day the learner loads the page
+  }
 
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
@@ -36,12 +58,19 @@ $(function () {
   
   
   // TODO: Add code to display the current date in the header of the page.
-  
-
+  function displayDate (){
     console.log(currentTimeDay.format('MMMM Do, YYYY'));
     console.log(currentTimeDay);
     var currentDayEl = $('#currentDay');
     currentDayEl.text(currentTimeDay.format('MMMM Do, YYYY'));
-    
+    // this displays the date at the top of the day when the page is loaded
+  }
 
+  function start(){
+    displayDate();
+    getSchedule();
+    // this is the starter function that fires up when the user loads the page
+  }
+
+  start ();
 });

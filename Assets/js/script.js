@@ -11,26 +11,61 @@
 
 $(function () {
   let currentTimeDay = moment();
+  // console.log(currentTimeDay.hour());
   // let liveSchedule = [];
-   let incomingSched = localStorage.getItem("storedSched");
-  
-  
-  
-  
+   let incomingSched = localStorage.getItem("storedSched");   
+  //  console.log(daySchedule);
+   let containerEl = $('#day');  
+  //  console.log(containerEl);
+  let hourBlockEl = [];  
+
+
   function getSchedule (){    
     if (incomingSched == null) {
       incomingSched = [];
     } else {
       incomingSched = JSON.parse(incomingSched);
     }
-    console.log`${incomingSched}`;
     
+    // console.log`${incomingSched}`;
+
     // let downloadSchedule = something;
     // this will grab the current schedule from the local storage
   }
   
-  function renderSchedule (){
 
+  function renderSchedule (){
+    
+    for (i = 9; i <=17; i++){
+      containerEl.append(hourBlockEl[i]);
+      /* 
+      attach the hour block array to the container "container-lg"
+      each hour block has the container for it, the text field, text entry ? and the save button
+      hourBlock[i].apptText
+      hourBlock[i].btn
+      
+
+
+
+
+
+      
+      if slotHour[i] < currentTimeDay.hour 
+      then set slotHour[i] class to past
+      else
+      if slotHour[i] == currentTimeDay.hour
+      then set class to present
+      else
+      set slotHour[i] class to future
+      */
+    };
+    /* 
+    
+    
+
+
+
+    */
     // this dynamically creates the schedule from the array of objects loaded from local storage and
     // this will also color-code the days depending on the time of day the learner loads the page
   }
@@ -82,7 +117,9 @@ $(function () {
   function start(){
     displayDate();
     getSchedule();
+    renderSchedule();
     saveSchedule();
+
     // this is the starter function that fires up when the user loads the page
   }
 

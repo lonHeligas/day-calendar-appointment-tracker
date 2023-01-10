@@ -1,13 +1,20 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
+// let incomingSched = []; ???
+
 
 
 
 $(function () {
   let currentTimeDay = moment();
-  let liveSchedule = [];
-  
+  // let liveSchedule = [];
+  // let incoming  
+  var btnSave = $('#save-btn');
+  btnSave.on('click', function(){
+    // $(this).hide();
+    console.log("You clicked Save!");
+  });
 
     
 
@@ -25,16 +32,17 @@ $(function () {
   }
 
   function renderSchedule (){
-    // this dynamically creates the schedule from the array of objects loaded from local storage
+    // this dynamically creates the schedule from the array of objects loaded from local storage and
+    // this will also color-code the days depending on the time of day the learner loads the page
   }
 
-  function saveSchedule (){
+
+  function saveSchedule (){    
+    /// ???
     // this will save the current schedule in local storage when the user clicks save
   }
 
-  function dayHighlight (){
-    // this will color-code the days depending on the time of day the learner loads the page
-  }
+  
 
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
@@ -69,6 +77,7 @@ $(function () {
   function start(){
     displayDate();
     getSchedule();
+    // saveSchedule();
     // this is the starter function that fires up when the user loads the page
   }
 

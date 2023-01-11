@@ -7,6 +7,20 @@
 // array of objects: hour
 //                   appt
 
+var schedule = [
+  {
+    hour: 9,
+    appt: "Buy Gary some tequila"
+  },
+  {
+    hour: 11,
+    appt: "Buy Gary more tequila"
+  },
+  {
+    hour: 17,
+    appt: "Buy Gary even more tequila"
+  }
+]
 
 
 $(function () {
@@ -26,7 +40,7 @@ $(function () {
     } else {
       incomingSched = JSON.parse(incomingSched);
     }
-    
+    renderSchedule();
     // console.log`${incomingSched}`;
 
     // let downloadSchedule = something;
@@ -34,15 +48,34 @@ $(function () {
   }
   
 
-  function renderSchedule (){
-    
-    for (i = 9; i <=17; i++){
-      containerEl.append(hourBlockEl[i]);
+  function renderSchedule (){    
+    for (i = 0; i <=schedule.length; i++){
+      var currHourObj = schedule[i];
+      // console.log(currHourObj.hour);
+      var currHourNumber = currHourObj.hour;  
+      // console.log(currHourNumber); // 9
+      var currHourAppt = currHourObj.appt;    // buy Gary Tequila
+      console.log(currHourAppt);
+      var idWeWant = `hour-${currHourNumber}`
+      console.warn(idWeWant);
+      var div = document.getElementById(idWeWant); 
+      
+      
+      // var hourDisplay = i+9;
+      // console.log(hourDisplay);
+      containerEl.append();
+
+      // console.log(hourBlockEl[i]);
       /* 
       attach the hour block array to the container "container-lg"
       each hour block has the container for it, the text field, text entry ? and the save button
-      hourBlock[i].apptText
-      hourBlock[i].btn
+      
+      for(var = 0; i<8; i++){
+        const obj = yourArray[i]
+        const div = createElement('div')
+        div.textContent = `${obj.appt} as ${obj.hour}`
+        $(containerEl).append(div)
+      }
       
 
 
@@ -117,8 +150,8 @@ $(function () {
   function start(){
     displayDate();
     getSchedule();
-    renderSchedule();
-    saveSchedule();
+
+    //saveSchedule();
 
     // this is the starter function that fires up when the user loads the page
   }

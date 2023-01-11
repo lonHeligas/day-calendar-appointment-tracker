@@ -48,17 +48,30 @@ $(function () {
   }
   
 
-  function renderSchedule (){    
+  function renderSchedule (){  
+
+
+
+
     for (i = 0; i <=schedule.length; i++){
       var currHourObj = schedule[i];
-      // console.log(currHourObj.hour);
+      console.log(currHourObj.hour);
       var currHourNumber = currHourObj.hour;  
       // console.log(currHourNumber); // 9
       var currHourAppt = currHourObj.appt;    // buy Gary Tequila
-      console.log(currHourAppt);
-      var idWeWant = `hour-${currHourNumber}`
+      // console.log(currHourAppt);
+      var idWeWant = `#hour-${currHourNumber}`
       console.warn(idWeWant);
-      var div = document.getElementById(idWeWant); 
+      var div = $(idWeWant) 
+      // hour into #hour
+      // appointment into #description 
+      
+      // write a selector 
+      $(`${idWeWant} .hour`).text(currHourObj.hour);
+      $(`${idWeWant} .description`).text(currHourAppt);
+      console.log($(`#hour-9 .hour`));
+
+      
       
       
       // var hourDisplay = i+9;

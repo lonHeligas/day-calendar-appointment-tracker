@@ -17,8 +17,12 @@ var schedule = [
     appt: "Buy Gary more tequila"
   },
   {
-    hour: 17,
+    hour: 12,
     appt: "Buy Gary even more tequila"
+  },
+  {
+    hour: 17,
+    appt: "Buy Gary all the tequila"
   }
 ]
 
@@ -55,23 +59,30 @@ $(function () {
 
     for (i = 0; i <=schedule.length; i++){
       var currHourObj = schedule[i];
-      console.log(currHourObj.hour);
+      // console.log(currHourObj.hour);
       var currHourNumber = currHourObj.hour;  
       // console.log(currHourNumber); // 9
       var currHourAppt = currHourObj.appt;    // buy Gary Tequila
       // console.log(currHourAppt);
       var idWeWant = `#hour-${currHourNumber}`
-      console.warn(idWeWant);
+      // console.warn(idWeWant);
       var div = $(idWeWant) 
       // hour into #hour
       // appointment into #description 
       
       // write a selector 
-      $(`${idWeWant} .hour`).text(currHourObj.hour);
-      $(`${idWeWant} .description`).text(currHourAppt);
-      console.log($(`#hour-9 .hour`));
-
+      if (currHourObj.hour >= 9 && currHourObj.hour < 12 ){
+        $(`${idWeWant} .hour`).text(`${currHourObj.hour} a.m.`);
+      } else if (currHourObj.hour == 12){
+        $(`${idWeWant} .hour`).text(`${currHourObj.hour} p.m.`);
+      } else { 
+        $(`${idWeWant} .hour`).text(`${(currHourObj.hour-12)} p.m.`);      
+      }
       
+      $(`${idWeWant} .description`).text(currHourAppt);
+      // console.log($(`#hour-9 .hour`));
+
+
       
       
       // var hourDisplay = i+9;

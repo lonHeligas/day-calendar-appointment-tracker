@@ -31,32 +31,29 @@ $(function () {
   let currentTimeDay = moment();
   // console.log(currentTimeDay.hour());
   // let liveSchedule = [];
-   let incomingSched = localStorage.getItem("storedSched");   
+  let incomingSched = localStorage.getItem("storedSched");   
   //  console.log(daySchedule);
-   let containerEl = $('#day');  
+  let containerEl = $('#day');  
   //  console.log(containerEl);
   let hourBlockEl = [];  
-
-
+  
+  
   function getSchedule (){    
     if (incomingSched == null) {
       incomingSched = [];
     } else {
       incomingSched = JSON.parse(incomingSched);
     }
-    renderSchedule();
+    renderIncomingData();
     // console.log`${incomingSched}`;
 
     // let downloadSchedule = something;
     // this will grab the current schedule from the local storage
   }
   
-
-  function renderSchedule (){  
-
-
-
-
+  
+  function renderIncomingData (){  
+    //var div = $(idWeWant) 
     for (i = 0; i <=schedule.length; i++){
       var currHourObj = schedule[i];
       // console.log(currHourObj.hour);
@@ -65,48 +62,27 @@ $(function () {
       var currHourAppt = currHourObj.appt;    // buy Gary Tequila
       // console.log(currHourAppt);
       var idWeWant = `#hour-${currHourNumber}`
-      // console.warn(idWeWant);
-      var div = $(idWeWant) 
-      // hour into #hour
-      // appointment into #description 
+      // console.warn(idWeWant);    
       
-      // write a selector 
+      
+      
       if (currHourObj.hour >= 9 && currHourObj.hour < 12 ){
         $(`${idWeWant} .hour`).text(`${currHourObj.hour} a.m.`);
       } else if (currHourObj.hour == 12){
         $(`${idWeWant} .hour`).text(`${currHourObj.hour} p.m.`);
       } else { 
         $(`${idWeWant} .hour`).text(`${(currHourObj.hour-12)} p.m.`);      
-      }
-      
-      $(`${idWeWant} .description`).text(currHourAppt);
-      // console.log($(`#hour-9 .hour`));
-
-
+      };
       
       
-      // var hourDisplay = i+9;
-      // console.log(hourDisplay);
-      containerEl.append();
-
-      // console.log(hourBlockEl[i]);
-      /* 
-      attach the hour block array to the container "container-lg"
-      each hour block has the container for it, the text field, text entry ? and the save button
+      $(`${idWeWant} .description`).text(currHourAppt);      
+      // containerEl.append();
       
-      for(var = 0; i<8; i++){
-        const obj = yourArray[i]
-        const div = createElement('div')
-        div.textContent = `${obj.appt} as ${obj.hour}`
-        $(containerEl).append(div)
-      }
+      //! attach the hour block array to the container "container-lg"
+      //! each hour block has the container for it, the text field, text entry ? and the save button
       
-
-
-
-
-
       
+      /*
       if slotHour[i] < currentTimeDay.hour 
       then set slotHour[i] class to past
       else
@@ -115,17 +91,17 @@ $(function () {
       else
       set slotHour[i] class to future
       */
+     // console.warn('this is my out of for loop note for ' + schedule);
     };
-    /* 
-    
-    
-
-
-
-    */
+    renderSchedule();
     // this dynamically creates the schedule from the array of objects loaded from local storage and
     // this will also color-code the days depending on the time of day the learner loads the page
-  }
+  };
+  
+  function renderSchedule(){
+    console.warn("You are in renderSchedule")
+   
+  };
   
   
   function saveSchedule (){    

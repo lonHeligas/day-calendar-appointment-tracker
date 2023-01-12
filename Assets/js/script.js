@@ -107,7 +107,6 @@ $(function () {
     } catch(e) {
       incomingSched = [];
     };
-
     console.log(incomingSched);
     
     // console.log(incomingSched);
@@ -122,7 +121,7 @@ $(function () {
   
   function renderIncomingData (){  
     // console.log("you are in renderIncomingData");
-    //var div = $(idWeWant) 
+    
     for (i = 0; i <schedule.length; i++){
       var currHourObj = schedule[i];
       // console.log(currHourObj.hour);
@@ -152,7 +151,7 @@ $(function () {
       */
      // console.warn('this is my out of for loop note for ' + schedule);
     };
-    getSchedule();
+    
     // this dynamically creates the schedule from the array of objects loaded from local storage and
     // this will also color-code the days depending on the time of day the learner loads the page
   };

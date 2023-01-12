@@ -29,15 +29,12 @@ var schedule = [
 
 $(function () {
   let currentTimeDay = moment();
-
-  let dayRow = $('');
   // console.log(currentTimeDay.hour());
   // let liveSchedule = [];
   let incomingSched = localStorage.getItem("storedSched");   
-  //  console.log(daySchedule);
-  let containerEl = $('#day');  
-  //  console.log(containerEl);
-  let hourBlockEl = [];  
+  //  console.log(daySchedule);  
+  
+  
   
   // * Add code to display the current date in the header of the page.
   function displayDate (){
@@ -74,44 +71,18 @@ $(function () {
       } else {
         $(`#hour-${i}`).addClass('future');        
       }
-
-
-      
-      
-      
-      
-      
-      // TODO Highlight which elements in the DOM are the children of the parent element
-
-// Uncomment the following two lines to see the which elements are the children to the #top
-
-
-// Uncomment the following line to see the which element is the first direct child of the <main>
-// $('#top').children().eq(0).addClass('boxy');
-
-// Uncomment the following line to add a list item to the list
-// $('#top').children().eq(4).append($('<li>Classmates</li>'));
-
-// Uncomment the following line to style the list items
-// $('#top').children('ul').children().addClass('bg-primary text-dark mb-3 p-3').css('border-radius', '.4rem');
-
-      
-      
     }
     getSchedule ()
   };
   
   function getSchedule (){    
     try{
-      incomingSched = JSON.parse(incomingSched);
+      schedule = JSON.parse(schedule);
     } catch(e) {
-      incomingSched = [];
+      schedule = [];
     };
-    console.log(incomingSched);
-    
-    // console.log(incomingSched);
-    // render
-    
+    console.log(schedule);
+    // render    
     renderIncomingData();
     
     // let downloadSchedule = something;
@@ -134,35 +105,55 @@ $(function () {
       
       $(`${idWeWant} .description`).text(currHourAppt);      
       // console.warn("out of the if loop")   ;
-      // containerEl.append();
-      
-      //! attach the hour block array to the container "container-lg"
-      //! each hour block has the container for it, the text field, text entry ? and the save button
       
       
-      /*
-      if slotHour[i] < currentTimeDay.hour 
-      then set slotHour[i] class to past
-      else
-      if slotHour[i] == currentTimeDay.hour
-      then set class to present
-      else
-      set slotHour[i] class to future
-      */
-     // console.warn('this is my out of for loop note for ' + schedule);
     };
     
-    // this dynamically creates the schedule from the array of objects loaded from local storage and
-    // this will also color-code the days depending on the time of day the learner loads the page
+  saveButtonListen();
   };
   
-  
-  
-  function saveSchedule (){    
-    var btnSaveEl = $('.btn');
-    btnSaveEl.on('click', function(){    
-      console.log("You clicked Save!");
+  // i have to click a button
+  // it saves the content in the text field corresponding to that button into the array
+  // it saves the array in local storage
+
+  function saveButtonListen(){
+    
+    var btnSaveEl = $('.saveBtn');    
+    btnSaveEl.on('click', function(event){    
+
+
+      // console.log("You clicked Save!");
+      // console.log(event.currentTarget);
+      let thisSave = $(event.currentTarget).parent().attr('id');      
+      let thisText = $(`#${thisSave} textarea `).val(); 
+        // event.currentTarget).parent().attr('textarea');
+      let thisHour = thisSave.substring(5);
+      console.log(thisHour);
+      console.log(thisSave);
+      console.log(thisText);
+      schedule.push({
+        hour: thisHour,
+        appt: thisText
+      })
+      console.log(schedule);
+      schedule stringify
+      
+
+
+
+
+
+
+      
+      //saveSchedule(whichButton);
     });   
+
+  }
+
+
+  
+  
+  function saveSchedule (thisButton){    
 
     
     

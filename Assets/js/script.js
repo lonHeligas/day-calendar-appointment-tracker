@@ -29,6 +29,8 @@ var schedule = [
 
 $(function () {
   let currentTimeDay = moment();
+
+  let dayRow = $('');
   // console.log(currentTimeDay.hour());
   // let liveSchedule = [];
   let incomingSched = localStorage.getItem("storedSched");   
@@ -37,6 +39,32 @@ $(function () {
   //  console.log(containerEl);
   let hourBlockEl = [];  
   
+  // * Add code to display the current date in the header of the page.
+  function displayDate (){
+    // console.log(currentTimeDay.format('MMMM Do, YYYY'));
+    // console.log(currentTimeDay);
+    var currentDayEl = $('#currentDay');
+    currentDayEl.text(currentTimeDay.format('MMMM Do, YYYY'));
+    // this displays the date at the top of the day when the page is loaded
+    // getSchedule();
+    renderSchedule()
+  }
+
+  function renderSchedule(){
+    // console.warn("You are in renderSchedule")
+    // console.log(currentTimeDay.hour())
+    var hourEl = $('.time-block');
+    // console.log (hourEl);
+    var currHourNumber = currentTimeDay.hour();  
+    for (i=9; i<=17; i++){    
+      let currentHourBlockEl = '#hour-'+[i];             
+      console.log($(currentHourBlockEl).children('.hour'));
+      // currentHourBlockEl.children(.hour);
+      // currentHourBlockEl.hour.text([i] + 'a.m.');
+      // ! #hour-i.hour
+    }
+    
+  };
   
   function getSchedule (){    
     if (incomingSched == null) {
@@ -44,9 +72,10 @@ $(function () {
     } else {
       incomingSched = JSON.parse(incomingSched);
     }
-    renderIncomingData();
-    // console.log`${incomingSched}`;
-
+    console.log`${incomingSched}`;
+    // render
+    // renderIncomingData();
+    
     // let downloadSchedule = something;
     // this will grab the current schedule from the local storage
   }
@@ -68,14 +97,17 @@ $(function () {
       
       if (currHourObj.hour >= 9 && currHourObj.hour < 12 ){
         $(`${idWeWant} .hour`).text(`${currHourObj.hour} a.m.`);
+        // console.warn("AM")
       } else if (currHourObj.hour == 12){
         $(`${idWeWant} .hour`).text(`${currHourObj.hour} p.m.`);
+        // console.warn("NOON")
       } else { 
         $(`${idWeWant} .hour`).text(`${(currHourObj.hour-12)} p.m.`);      
-      };
-      
+        // console.warn("PM")
+      };   
       
       $(`${idWeWant} .description`).text(currHourAppt);      
+      console.warn("out of the if loop")   ;
       // containerEl.append();
       
       //! attach the hour block array to the container "container-lg"
@@ -93,15 +125,10 @@ $(function () {
       */
      // console.warn('this is my out of for loop note for ' + schedule);
     };
-    renderSchedule();
     // this dynamically creates the schedule from the array of objects loaded from local storage and
     // this will also color-code the days depending on the time of day the learner loads the page
   };
   
-  function renderSchedule(){
-    console.warn("You are in renderSchedule")
-   
-  };
   
   
   function saveSchedule (){    
@@ -109,8 +136,8 @@ $(function () {
     btnSaveEl.on('click', function(){    
       console.log("You clicked Save!");
     });   
-
-
+    
+    
     
     // this will save the current schedule in local storage when the user clicks save
   }
@@ -138,21 +165,14 @@ $(function () {
   
   
   
-  // TODO: Add code to display the current date in the header of the page.
-  function displayDate (){
-    // console.log(currentTimeDay.format('MMMM Do, YYYY'));
-    // console.log(currentTimeDay);
-    var currentDayEl = $('#currentDay');
-    currentDayEl.text(currentTimeDay.format('MMMM Do, YYYY'));
-    // this displays the date at the top of the day when the page is loaded
-  }
-
+  
   function start(){
     displayDate();
-    getSchedule();
-
+    // getSchedule();
+    
+    
     //saveSchedule();
-
+    
     // this is the starter function that fires up when the user loads the page
   }
 

@@ -16,6 +16,8 @@ Developer Note: I used moment upon suggestion from our instructor.
 
 ![The screenshot of the final page is as follows:](./assets/images/screenshot.png)
 
+
+
 ## Challenges I encountered
 
 Getting used to jQuery was a somewhat steep learning curve, but once I figured out how to use it, I understood why it's popular. Saving the content from the local storage (or making a an empty array) wasn't the difficult part. Extracting the times and looping through everything was. I would have liked to build out the entire html dynamically but I ran out of time.

@@ -14,7 +14,7 @@ Developer Note: I used moment upon suggestion from our instructor.
 
 [This is the repository for this day calendar](https://github.com/lonHeligas/day-calendar-appointment-tracker)
 
-![Screenshot of the final page is as follows:](./assets/images/screenshot.png)
+![The screenshot of the final page is as follows:](./assets/images/screenshot.png)
 
 ## Challenges I encountered
 

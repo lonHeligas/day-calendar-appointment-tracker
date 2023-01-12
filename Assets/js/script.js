@@ -17,8 +17,12 @@ var schedule = [
     appt: "Buy Gary more tequila"
   },
   {
-    hour: 17,
+    hour: 12,
     appt: "Buy Gary even more tequila"
+  },
+  {
+    hour: 17,
+    appt: "Buy Gary all the tequila"
   }
 ]
 
@@ -27,90 +31,131 @@ $(function () {
   let currentTimeDay = moment();
   // console.log(currentTimeDay.hour());
   // let liveSchedule = [];
-   let incomingSched = localStorage.getItem("storedSched");   
-  //  console.log(daySchedule);
-   let containerEl = $('#day');  
-  //  console.log(containerEl);
-  let hourBlockEl = [];  
+  let incomingSched = localStorage.getItem("storedSched");   
+  //  console.log(daySchedule);  
+  
+  
+  
+  // * Add code to display the current date in the header of the page.
+  function displayDate (){
+    // console.log(currentTimeDay.format('MMMM Do, YYYY'));
+    // console.log(currentTimeDay);
+    var currentDayEl = $('#currentDay');
+    currentDayEl.text(currentTimeDay.format('MMMM Do, YYYY'));
+    // this displays the date at the top of the day when the page is loaded
+    // getSchedule();
+    renderSchedule()
+  }
 
-
-  function getSchedule (){    
-    if (incomingSched == null) {
-      incomingSched = [];
-    } else {
-      incomingSched = JSON.parse(incomingSched);
+  function renderSchedule(){
+    // console.warn("You are in renderSchedule")
+    // console.log(currentTimeDay.hour())
+    var hourEl = $('.time-block');
+    // console.log (hourEl);
+    var currHourNumber = currentTimeDay.hour();  
+    for (i=9; i<=17; i++){ 
+      let displayText = `${i} a.m.`;
+      if (i == 12) {
+        displayText = `${i} p.m.`;
+      };
+      if (i > 12){        
+        displayText = `${i-12} p.m.`;
+      };
+      $(`#hour-${i} .hour`).text(`${displayText}`);
+      // ~ let currentHourBlockEl = '#hour-11 .hour';  
+      
+      if (currHourNumber == i){
+        $(`#hour-${i}`).addClass('present');
+      } else if (currHourNumber > i) {
+        $(`#hour-${i}`).addClass('past');
+      } else {
+        $(`#hour-${i}`).addClass('future');        
+      }
     }
-    renderSchedule();
-    // console.log`${incomingSched}`;
-
+    getSchedule ()
+  };
+  
+  function getSchedule (){    
+    try{
+      schedule = JSON.parse(incomingSched);
+    } catch(e) {
+      schedule = [];
+    };
+    console.log(schedule);
+    // render    
+    renderIncomingData();
+    
     // let downloadSchedule = something;
     // this will grab the current schedule from the local storage
   }
   
-
-  function renderSchedule (){    
-    for (i = 0; i <=schedule.length; i++){
+  
+  function renderIncomingData (){  
+    // console.log("you are in renderIncomingData");
+    
+    for (i = 0; i <schedule.length; i++){
       var currHourObj = schedule[i];
       // console.log(currHourObj.hour);
       var currHourNumber = currHourObj.hour;  
       // console.log(currHourNumber); // 9
       var currHourAppt = currHourObj.appt;    // buy Gary Tequila
-      console.log(currHourAppt);
-      var idWeWant = `hour-${currHourNumber}`
-      console.warn(idWeWant);
-      var div = document.getElementById(idWeWant); 
+      // console.log(currHourAppt);
+      var idWeWant = `#hour-${currHourNumber}`
+      // console.warn(idWeWant);    
+      
+      $(`${idWeWant} .description`).text(currHourAppt);      
+      // console.warn("out of the if loop")   ;
       
       
-      // var hourDisplay = i+9;
-      // console.log(hourDisplay);
-      containerEl.append();
-
-      // console.log(hourBlockEl[i]);
-      /* 
-      attach the hour block array to the container "container-lg"
-      each hour block has the container for it, the text field, text entry ? and the save button
-      
-      for(var = 0; i<8; i++){
-        const obj = yourArray[i]
-        const div = createElement('div')
-        div.textContent = `${obj.appt} as ${obj.hour}`
-        $(containerEl).append(div)
-      }
-      
-
-
-
-
-
-      
-      if slotHour[i] < currentTimeDay.hour 
-      then set slotHour[i] class to past
-      else
-      if slotHour[i] == currentTimeDay.hour
-      then set class to present
-      else
-      set slotHour[i] class to future
-      */
     };
-    /* 
     
+  saveButtonListen();
+  };
+  
+  // i have to click a button
+  // it saves the content in the text field corresponding to that button into the array
+  // it saves the array in local storage
+
+  function saveButtonListen(){
     
+    var btnSaveEl = $('.saveBtn');    
+    btnSaveEl.on('click', function(event){    
+
+
+      // console.log("You clicked Save!");
+      // console.log(event.currentTarget);
+      let thisSave = $(event.currentTarget).parent().attr('id');      
+      let thisText = $(`#${thisSave} textarea `).val(); 
+        // event.currentTarget).parent().attr('textarea');
+      let thisHour = thisSave.substring(5);
+      console.log(thisHour);
+      console.log(thisSave);
+      console.log(thisText);
+      schedule.push({
+        hour: thisHour,
+        appt: thisText
+      })
+      console.log(schedule);      
+      localStorage.setItem("storedSched", JSON.stringify(schedule));  
 
 
 
-    */
-    // this dynamically creates the schedule from the array of objects loaded from local storage and
-    // this will also color-code the days depending on the time of day the learner loads the page
-  }
-  
-  
-  function saveSchedule (){    
-    var btnSaveEl = $('.btn');
-    btnSaveEl.on('click', function(){    
-      console.log("You clicked Save!");
+
+
+
+
+      
+      //saveSchedule(whichButton);
     });   
 
+  }
 
+
+  
+  
+  function saveSchedule (thisButton){    
+
+    
     
     // this will save the current schedule in local storage when the user clicks save
   }
@@ -138,21 +183,14 @@ $(function () {
   
   
   
-  // TODO: Add code to display the current date in the header of the page.
-  function displayDate (){
-    // console.log(currentTimeDay.format('MMMM Do, YYYY'));
-    // console.log(currentTimeDay);
-    var currentDayEl = $('#currentDay');
-    currentDayEl.text(currentTimeDay.format('MMMM Do, YYYY'));
-    // this displays the date at the top of the day when the page is loaded
-  }
-
+  
   function start(){
     displayDate();
-    getSchedule();
-
+    
+    
+    
     //saveSchedule();
-
+    
     // this is the starter function that fires up when the user loads the page
   }
 

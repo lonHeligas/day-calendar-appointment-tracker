@@ -56,25 +56,64 @@ $(function () {
     var hourEl = $('.time-block');
     // console.log (hourEl);
     var currHourNumber = currentTimeDay.hour();  
-    for (i=9; i<=17; i++){    
-      let currentHourBlockEl = '#hour-'+[i];             
-      console.log($(currentHourBlockEl).children('.hour'));
-      // currentHourBlockEl.children(.hour);
-      // currentHourBlockEl.hour.text([i] + 'a.m.');
-      // ! #hour-i.hour
+    for (i=9; i<=17; i++){ 
+      let displayText = `${i} a.m.`;
+      if (i == 12) {
+        displayText = `${i} p.m.`;
+      };
+      if (i > 12){        
+        displayText = `${i-12} p.m.`;
+      };
+      $(`#hour-${i} .hour`).text(`${displayText}`);
+      // ~ let currentHourBlockEl = '#hour-11 .hour';  
+      
+      if (currHourNumber == i){
+        $(`#hour-${i}`).addClass('present');
+      } else if (currHourNumber > i) {
+        $(`#hour-${i}`).addClass('past');
+      } else {
+        $(`#hour-${i}`).addClass('future');        
+      }
+
+
+      
+      
+      
+      
+      
+      // TODO Highlight which elements in the DOM are the children of the parent element
+
+// Uncomment the following two lines to see the which elements are the children to the #top
+
+
+// Uncomment the following line to see the which element is the first direct child of the <main>
+// $('#top').children().eq(0).addClass('boxy');
+
+// Uncomment the following line to add a list item to the list
+// $('#top').children().eq(4).append($('<li>Classmates</li>'));
+
+// Uncomment the following line to style the list items
+// $('#top').children('ul').children().addClass('bg-primary text-dark mb-3 p-3').css('border-radius', '.4rem');
+
+      
+      
     }
-    
+    getSchedule ()
   };
   
   function getSchedule (){    
-    if (incomingSched == null) {
-      incomingSched = [];
-    } else {
+    try{
       incomingSched = JSON.parse(incomingSched);
-    }
-    console.log`${incomingSched}`;
+    } catch(e) {
+      incomingSched = [];
+    };
+
+    console.log(incomingSched);
+    
+    // console.log(incomingSched);
     // render
-    // renderIncomingData();
+    
+    renderIncomingData();
     
     // let downloadSchedule = something;
     // this will grab the current schedule from the local storage
@@ -82,8 +121,9 @@ $(function () {
   
   
   function renderIncomingData (){  
+    // console.log("you are in renderIncomingData");
     //var div = $(idWeWant) 
-    for (i = 0; i <=schedule.length; i++){
+    for (i = 0; i <schedule.length; i++){
       var currHourObj = schedule[i];
       // console.log(currHourObj.hour);
       var currHourNumber = currHourObj.hour;  
@@ -93,21 +133,8 @@ $(function () {
       var idWeWant = `#hour-${currHourNumber}`
       // console.warn(idWeWant);    
       
-      
-      
-      if (currHourObj.hour >= 9 && currHourObj.hour < 12 ){
-        $(`${idWeWant} .hour`).text(`${currHourObj.hour} a.m.`);
-        // console.warn("AM")
-      } else if (currHourObj.hour == 12){
-        $(`${idWeWant} .hour`).text(`${currHourObj.hour} p.m.`);
-        // console.warn("NOON")
-      } else { 
-        $(`${idWeWant} .hour`).text(`${(currHourObj.hour-12)} p.m.`);      
-        // console.warn("PM")
-      };   
-      
       $(`${idWeWant} .description`).text(currHourAppt);      
-      console.warn("out of the if loop")   ;
+      // console.warn("out of the if loop")   ;
       // containerEl.append();
       
       //! attach the hour block array to the container "container-lg"
@@ -125,6 +152,7 @@ $(function () {
       */
      // console.warn('this is my out of for loop note for ' + schedule);
     };
+    getSchedule();
     // this dynamically creates the schedule from the array of objects loaded from local storage and
     // this will also color-code the days depending on the time of day the learner loads the page
   };
@@ -136,7 +164,7 @@ $(function () {
     btnSaveEl.on('click', function(){    
       console.log("You clicked Save!");
     });   
-    
+
     
     
     // this will save the current schedule in local storage when the user clicks save
@@ -168,7 +196,7 @@ $(function () {
   
   function start(){
     displayDate();
-    // getSchedule();
+    
     
     
     //saveSchedule();

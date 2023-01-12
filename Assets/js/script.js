@@ -77,7 +77,7 @@ $(function () {
   
   function getSchedule (){    
     try{
-      schedule = JSON.parse(schedule);
+      schedule = JSON.parse(incomingSched);
     } catch(e) {
       schedule = [];
     };
@@ -135,9 +135,9 @@ $(function () {
         hour: thisHour,
         appt: thisText
       })
-      console.log(schedule);
-      schedule stringify
-      
+      console.log(schedule);      
+      localStorage.setItem("storedSched", JSON.stringify(schedule));  
+
 
 
 
